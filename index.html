@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel= "stylesheet" type="text/css" href="style.css">
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>  
+</head>
+
+<body class="main">
+    <div class="grid-container">
+        <div class="item1">
+            <h2 class="intro">Hola! My name is</h2>
+            <h1 id="myName">Jorge</h1>
+        </div>
+        <div class="headshot">
+            <img src="assets/head.jpg" style="border-radius: 50%;"></img>
+        </div>
+        <div class="about">
+            <h3 class="section">About Me</h3>
+            <div>I am currently a sophmore at Vanderbilt University studying Civil Engineering from Nashville, TN. I am interested in software development.</div>
+            <div style = "margin-top: 20px;">
+                <button class= "mdc-button mdc-button--raised" id = "resume">
+                    View My Resume
+                </button>
+            </div>
+        </div>
+    </div>
+
+    
+    <div style="padding-bottom: 15vh; margin: 0 auto;">
+        <h1 class="section">My Projects</h1>
+        <div class="mdc-layout-grid">
+            <div class="mdc-layout-grid__inner" id="projectList">
+                <!-- Project cards will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Note that you could just host this in a file named script.js and include it. -->
+    <script> 
+        const projects = [ 
+            {
+                title: "AspireTrack", 
+                summary: "Google Studios",
+                description: "Made an app with JavaScript, Made an app with JavaScript, Made an app with JavaScript,Made an app with JavaScript,Made an app with JavaScript,Made an app with JavaScript,Made an app with JavaScript, Made an app with JavaScript, Made an app with JavaScript,Made an app with JavaScript,Made an app with JavaScript,Made an app with JavaScript",
+                imageSrc: "./assets/angular.jpg",
+                codeSrc: ""
+            },
+            {
+                title: "My App", 
+                summary: "JavaScript",
+                description: "Made an app with JavaScript, Made an app with JavaScript, Made an app with JavaScript,Made an app with JavaScript,Made an app with JavaScript,Made an app with JavaScript,Made an app with JavaScript, Made an app with JavaScript, Made an app with JavaScript,Made an app with JavaScript,Made an app with JavaScript,Made an app with JavaScript",
+                imageSrc: "./assets/angular.jpg",
+                codeSrc: ""
+            },
+            {
+                title: "My App", 
+                summary: "JavaScript",
+                description: "Made an app with JavaScript, Made an app with JavaScript, Made an app with JavaScript,Made an app with JavaScript,Made an app with JavaScript,Made an app with JavaScript,Made an app with JavaScript, Made an app with JavaScript, Made an app with JavaScript,Made an app with JavaScript,Made an app with JavaScript,Made an app with JavaScript",
+                imageSrc: "./assets/angular.jpg",
+                codeSrc: ""
+            }
+        ];
+
+        function createProjectCard(project) {
+            const card = document.createElement('div');
+            card.className = 'mdc-layout-grid__cell mdc-layout-grid__cell--span-4';
+            card.innerHTML = `
+                <div class="mdc-card">
+                    <div class="mdc-card__primary-action" tabindex="0">
+                        <div class="mdc-card__media mdc-card__media--16-9">
+                            <img src=${project.imageSrc}>
+                        </div>
+                        <div class="mdc-card__ripple"></div>
+                        <div class="mdc-card__primary">
+                            <h2 class="mdc-typography mdc-typography--headline6">${project.title}</h2>
+                            <h3 class="mdc-typography mdc-typography--subtitle2">${project.summary}</h3>
+                        </div>
+                        <div class="mdc-card__secondary mdc-typography mdc-typography--body2">
+                           ${project.description.substring(0, 50)}...
+                        </div>
+                    </div>
+                    <div class="mdc-card__actions">
+                        <button class="mdc-button mdc-card__action mdc-card__action--button">
+                            <div class="mdc-button__ripple"></div>
+                            <span class="mdc-button__label">Learn More</span>
+                        </button>
+                        <button class="mdc-button mdc-card__action mdc-card__action--button right-justify">
+                            <div class="mdc-button__ripple"></div>
+                            <span class="mdc-button__label"><a href="${project.codeSrc}" target="_blank">View Code</a></span>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            const learnMoreBtn = card.querySelector('.mdc-button');
+            const cardContent = card.querySelector('.mdc-card__secondary');
+            let expanded = false;
+
+            learnMoreBtn.addEventListener('click', () => {
+               if(expanded == true){
+                cardContent.textContent = project.description.substring(0, 50) + "..."
+                learnMoreBtn.querySelector('.mdc-button__label').textContent = "Learn More"
+               }
+               else{
+                cardContent.textContent = project.description
+                learnMoreBtn.querySelector('.mdc-button__label').textContent = "Hide"
+               }
+               expanded = !expanded
+            });
+
+            return card;
+        }
+        
+        const projectList = document.getElementById('projectList'); // We want to add to this
+
+        function renderProjects() {
+            projects.forEach((projects) => {
+                let card = createProjectCard(projects)
+                projectList.append(card)
+            })
+            
+        }
+
+        renderProjects();
+
+
+        document.getElementById('resume').addEventListener('click', function() {
+            window.open("assets/Rob_Banks_Resume.pdf", target="_blank")
+        })
+
+
+        mdc.ripple.MDCRipple.attachTo(document.querySelector('.mdc-button')); // Needed for our Material JS library to work.
+    </script>
+
+    <div class="connect">
+        <a href="https://www.linkedin.com/in/your-linkedin-username" target="_blank" class="media">
+            <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn Profile" width="50" height="50">
+        </a>
+
+        <a href="https://github.com/shadowcatbird/Todo-Habit-App" target="_blank" class="media">
+            <img src="assets/github.png" alt="GitHub Profile" width="50" height="50">
+        </a>
+    </div>
+    
+    <script src="script.js" type="js"></script>
+</body>
+</html>
